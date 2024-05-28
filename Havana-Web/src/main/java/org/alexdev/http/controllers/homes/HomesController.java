@@ -33,10 +33,6 @@ public class HomesController {
     public static void home(WebConnection webConnection) {
         XSSUtil.clear(webConnection);
 
-        if (!webConnection.session().contains("authenticated")) {
-            return;
-        }
-
         Template template = webConnection.template("home");
         PlayerDetails playerDetails = null;
 
