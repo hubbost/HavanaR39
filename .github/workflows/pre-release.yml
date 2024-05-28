@@ -64,7 +64,7 @@ jobs:
 
       - id: sha-short
         name: Get short SHA
-        run: echo "::set-output name=sha-short::$(git rev-parse --short HEAD)"
+        run: echo "sha-short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Compress release files
         uses: montudor/action-zip@v1
