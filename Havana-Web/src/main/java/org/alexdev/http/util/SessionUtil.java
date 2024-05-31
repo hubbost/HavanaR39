@@ -33,9 +33,7 @@ public class SessionUtil {
         }
 
         if (hasError) {
-            if(PlayerDao.getId(username) != -1) {
-                webConnection.session().set("alertMessage", "This is a legacy account. Please contact discord support to access. Press <a href='https://discord.gg/NJ4eq8tm5R'>here</a> for discord invite\n");
-            } else {
+            if(PlayerDao.getId(username) == -1) {
                 webConnection.session().set("alertMessage", "Incorrect username or password\n");
             }
 
