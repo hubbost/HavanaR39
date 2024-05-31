@@ -15,15 +15,6 @@ public class BaseController implements Route {
 
     @Override
     public void handleRoute(WebConnection webConnection) throws Exception {
-        /*if (!webConnection.request().headers().isEmpty()) {
-            for (String name: webConnection.request().headers().names()) {
-                for (String value: webConnection.request().headers().getAll(name)) {
-                    System.out.println("HEADER: " + name + " = " + value);
-                }
-            }
-            System.out.println();
-        }*/
-
         if (webConnection.isRequestHandled()) {
             if (GameConfiguration.getInstance().getBoolean("maintenance") && !webConnection.getRouteRequest().startsWith("/api")) {
                 if (!webConnection.getRouteRequest().startsWith("/maintenance") && !webConnection.getRouteRequest().startsWith("/" + Routes.HOUSEKEEPING_PATH)) {
@@ -58,20 +49,6 @@ public class BaseController implements Route {
         }
 
         if (webConnection.isRequestHandled()) {
-            /*if (!(webConnection.getRouteRequest().equals("/register")
-                    || webConnection.getRouteRequest().equals("/client")
-                    || webConnection.getRouteRequest().equals("/login_popup")
-                    || webConnection.getRouteRequest().startsWith("/clientlog")
-                    || webConnection.getRouteRequest().equals("/client")
-                    || webConnection.getRouteRequest().equals("/security_check")
-                    || webConnection.getRouteRequest().startsWith("/account/")
-                    || webConnection.getRouteRequest().startsWith("/api/")
-                    || webConnection.getRouteRequest().startsWith("/habblet/")
-                    || webConnection.getRouteRequest().startsWith("/groups/actions")
-                    || webConnection.getRouteRequest().startsWith("/myhabbo/"))) {
-                webConnection.session().set("lastBrowsedPage", webConnection.getRouteRequest());
-            }*/
-
             if (webConnection.session().getBoolean("authenticated")) {
                 this.handleAuthenticatedRoute(webConnection);
             } else {
@@ -89,35 +66,10 @@ public class BaseController implements Route {
             long lastRequest = webConnection.session().getLongOrElse("lastRequest", 0);
 
             if (DateUtil.getCurrentTimeSeconds() > lastRequest) {
-                //if (webConnection.cookies().exists(SessionUtil.REMEMEBER_TOKEN_NAME)) {
                 webConnection.session().set("clientAuthenticate", true);
-                //}
             }
         } else {
             webConnection.session().set("clientAuthenticate", false);
-
         }
-
-        /*StringBuilder postRequest = new StringBuilder("(");
-        StringBuilder getRequest = new StringBuilder();
-
-        for (var entry : webConnection.post().getValues().entrySet()) {
-            postRequest.append(entry.getKey());
-            postRequest.append(" = ");
-            postRequest.append(entry.getValue());
-            postRequest.append(", ");
-        }
-
-        for (var entry : webConnection.get().getValues().entrySet()) {
-            getRequest.append(entry.getKey());
-            getRequest.append(" = ");
-            getRequest.append(entry.getValue());
-            getRequest.append(", ");
-        }
-
-        getRequest.append(")");
-        postRequest.append(")");
-
-        logger.info("Request: " + webConnection.getUriRequest() + " from " + webConnection.getIpAddress() + " with payload POST: " + postRequest + ", GET: " + getRequest);*/
     }
 }

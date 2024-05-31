@@ -56,33 +56,12 @@ public class HavanaWeb {
             settings.setPageEncoding(ServerConfiguration.getString("page.encoding"));
         }
 
-        // Spammers
-        /*Settings.getInstance().getBlockIpv4().add("192.190");
-        Settings.getInstance().getBlockIpv4().add("79.108");
-        Settings.getInstance().getBlockIpv4().add("194.59");
-        Settings.getInstance().getBlockIpv4().add("185.189");
-        Settings.getInstance().getBlockIpv4().add("212.8");
-        Settings.getInstance().getBlockIpv4().add("104.250");
-        */
-
         if (!Storage.connect()) {
             Log.getErrorLogger().error("Could not connect to MySQL");
             return;
         }
 
         GameConfiguration.getInstance(new WebSettingsConfigWriter());
-
-        /*byte[] pw = "lol123".getBytes(StandardCharsets.UTF_8);
-        byte[] outputHash = new byte[PwHash.STR_BYTES];
-        PwHash.Native pwHash = (PwHash.Native) PlayerDao.LIB_SODIUM;
-        boolean success = pwHash.cryptoPwHashStr(
-                outputHash,
-                pw,
-                pw.length,
-                PwHash.OPSLIMIT_INTERACTIVE,
-                PwHash.MEMLIMIT_INTERACTIVE
-        );
-        System.out.println(new String(outputHash));*/
 
         WordfilterManager.getInstance();
         StickerManager.getInstance();
@@ -94,7 +73,6 @@ public class HavanaWeb {
         scheduler.scheduleWithFixedDelay(new Watchdog(), 1, 1, TimeUnit.SECONDS);
 
         logger.info("Registering web routes..");
-        //logger.info(EmailUtil.renderRegistered("Alex", "01/01/1970", UUID.randomUUID().toString()));
 
         Routes.register();
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");
@@ -105,16 +83,6 @@ public class HavanaWeb {
         WebServer instance = new WebServer(port);
         instance.start();
     }
-
-    /**
-     * Boots up JTwig engine.
-     */
-    /*private static void setupTemplateSystem() {
-        var template = JtwigTemplate.inlineTemplate("test");
-        var model = JtwigModel.newModel();
-        model.with("test", "HavanaWeb");
-        template.render(model);
-    }*/
 
     public static ExecutorService getExecutor() {
         return executor;

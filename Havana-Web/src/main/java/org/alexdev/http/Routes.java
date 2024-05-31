@@ -65,8 +65,6 @@ public class Routes {
         RouteManager.addRoute("/credits/club/tryout", ClubController::clubTryout);
         RouteManager.addRoute("/tag", TagController::tag);
         RouteManager.addRoute("/tag/*", TagController::search);
-        //RouteManager.addRoute("/help/install_shockwave", SiteController::install_shockwave);
-        //RouteManager.addRoute("/help/shockwave_app", SiteController::shockwave_app);
         RouteManager.addRoute("/help/*", FaqController::faq);
 
         // Client
@@ -75,7 +73,6 @@ public class Routes {
         RouteManager.addRoute("/flash_client", ClientController::flashClient);
         RouteManager.addRoute("/clientlog/update", ClientController::blank);
         RouteManager.addRoute("/cacheCheck", ClientController::blank);
-        //RouteManager.addRoute("/beta_client", ClientController::betaClient); // R34 client: deprecated
         RouteManager.addRoute("/client_popup/install_shockwave", ClientController::clientInstallShockwave);
         RouteManager.addRoute("/client_error", ClientController::client_error);
         RouteManager.addRoute("/client_connection_failed", ClientController::client_connection_failed);
@@ -111,7 +108,6 @@ public class Routes {
 
         // Profile
         RouteManager.addRoute("/profile", ProfileController::profile);
-        //RouteManager.addRoute("/profile/flash", ProfileController::profile_flash);
         RouteManager.addRoute("/profile/verify", ProfileController::verify);
         RouteManager.addRoute("/profile/send_email", ProfileController::send_email);
 
